@@ -1,3 +1,6 @@
+#ifndef SHRED_H
+#define SHRED_H
+
 #include "defines.h"
 #include <stdint.h>
 
@@ -11,3 +14,5 @@ typedef struct {
     Shred data_shred[DATA_SHRED];
     Shred coding_shred[CODING_SHRED];
 } ShredSet;
+
+#endif
