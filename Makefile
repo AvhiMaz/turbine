@@ -1,4 +1,4 @@
-.PHONY: build run format all
+.PHONY: build run format all link
 
 build:
 	gcc src/main.c src/shred.c -o main
@@ -11,3 +11,6 @@ format:
 
 all:
 	make format && make build && make run
+
+link:
+	bear -- make build
