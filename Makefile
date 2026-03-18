@@ -1,7 +1,7 @@
 .PHONY: build run format all
 
 build:
-	gcc src/main.c -o main
+	gcc src/main.c src/shred.c -o main
 
 run:
 	./main

@@ -15,7 +15,8 @@ void shred(Transaction *tx, ShredSet *set) {
 
 void generate_coding_shred(ShredSet *set) {
     for (int i = 0; i < DATA_SHRED; i++) {
-        memcpy(set->coding_shred[i].data, a ^ b, 128);
+        // need to impl XOR here to get recoverable coding shred
+        // memcpy(set->coding_shred[i].data, a ^ b, 128);
         set->coding_shred[i].index = i;
         set->coding_shred[i].type = SHRED_CODING;
     }
