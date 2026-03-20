@@ -7,6 +7,8 @@ extern "C" {
 #endif
 
 int rs_encode(int count, int bytes, void **data_shreds, void **coding_shreds);
+int rs_decode(int count, int bytes, void **data_shreds, void **coding_shreds,
+              int *lost_indices, int lost_count);
 
 #ifdef __cplusplus
 }
