@@ -1,4 +1,4 @@
-#include "leopard.h"
+#include "../thirdparty/leopard.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -29,4 +29,9 @@ int rs_encode(int count, int bytes, void **data_shreds, void **coding_shreds) {
     free(work);
 
     return r == Leopard_Success ? 0 : -1;
+}
+
+int rs_decode(int count, int bytes, void **data_shreds, void **coding_shreds) {
+
+    return 1;
 }
