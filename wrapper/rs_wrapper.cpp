@@ -60,6 +60,9 @@ int rs_decode(int count, int bytes, void **data_shreds, void **coding_shreds,
         for (int i = 0; i < lost_count; i++) {
             int idx = lost_indices[i];
             if (idx < count) {
+                if (data_shreds[idx] == NULL) {
+                    data_shreds[idx] = malloc(bytes);
+                }
                 memcpy(data_shreds[idx], work[idx], bytes);
             }
         }
