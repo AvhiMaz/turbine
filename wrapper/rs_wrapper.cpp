@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstring>
 
+extern "C" {
+
 int rs_encode(int count, int bytes, void **data_shreds, void **coding_shreds) {
     if (leo_init() != 0) {
         return -1;
@@ -74,4 +76,5 @@ int rs_decode(int count, int bytes, void **data_shreds, void **coding_shreds,
     free(work);
 
     return r == Leopard_Success ? 0 : -1;
+}
 }
