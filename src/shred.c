@@ -1,4 +1,5 @@
 #include "shred.h"
+#include "../wrapper/rs_wrapper.h"
 #include "defines.h"
 #include "transaction.h"
 #include <string.h>
@@ -14,10 +15,14 @@ void shred(Transaction *tx, ShredSet *set) {
 }
 
 void generate_coding_shred(ShredSet *set) {
+
+    void *data_shreds[DATA_SHRED];
+    void *coding_shreds[CODING_SHRED];
+
     for (int i = 0; i < DATA_SHRED; i++) {
-        // need to impl XOR here to get recoverable coding shred
-        // memcpy(set->coding_shred[i].data, a ^ b, 128);
-        set->coding_shred[i].index = i;
-        set->coding_shred[i].type = SHRED_CODING;
+        data_shreds[i] = set->data_shred[i].data;
+        coding_shreds[i] = set->coding_shred[i].data;
     }
+
+    rs_encode(DATA_SHRED, SHRED_SIZE, data_shreds, coding_shreds);
 }
