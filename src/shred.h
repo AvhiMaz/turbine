@@ -2,6 +2,7 @@
 #define SHRED_H
 
 #include "defines.h"
+#include "transaction.h"
 #include <stdint.h>
 
 typedef struct {
@@ -14,5 +15,8 @@ typedef struct {
     Shred data_shred[DATA_SHRED];
     Shred coding_shred[CODING_SHRED];
 } ShredSet;
+
+void shred(Transaction *tx, ShredSet *set);
+void generate_coding_shred(ShredSet *set);
 
 #endif
