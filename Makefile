@@ -1,13 +1,13 @@
 .PHONY: build run format all link
 
 build:
-	gcc src/main.c src/shred.c -o main
+	g++ -c thirdparty/leopard.cpp thirdparty/LeopardCommon.cpp thirdparty/LeopardFF8.cpp thirdparty/LeopardFF16.cpp thirdparty/rs_wrapper.cpp && gcc -c src/main.c src/shred.c && g++ main.o shred.o leopard.o LeopardCommon.o LeopardFF8.o LeopardFF16.o rs_wrapper.o -o main
 
 run:
 	./main
 
 format:
-	clang-format -i src/*.c src/*.h
+	clang-format -i src/*.c src/*.h && clang-format -i thirdparty/*.cpp thirdparty/*.h
 
 all:
 	make format && make build && make run
