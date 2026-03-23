@@ -1,4 +1,6 @@
 *.o
 main
 compile_commands.json
+.DS_Store
+
 
