@@ -9,6 +9,7 @@ typedef struct {
     uint8_t  data[SHRED_SIZE];
     uint32_t index;
     uint8_t  type;
+    uint32_t checksum;
 } Shred;
 
 typedef struct {
@@ -18,5 +19,6 @@ typedef struct {
 
 void shred(Transaction *tx, ShredSet *set);
 void generate_coding_shred(ShredSet *set);
+int  validate_shred(Shred *s);
 
 #endif

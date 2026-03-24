@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "transaction.h"
 #include <string.h>
+#include <zlib.h>
 
 void shred(Transaction *tx, ShredSet *set) {
 
@@ -11,6 +12,8 @@ void shred(Transaction *tx, ShredSet *set) {
                SHRED_SIZE);
         set->data_shred[i].index = i;
         set->data_shred[i].type = SHRED_DATA;
+        set->data_shred[i].checksum =
+            crc32(0, set->data_shred[i].data, SHRED_SIZE);
     }
 }
 
@@ -25,4 +28,14 @@ void generate_coding_shred(ShredSet *set) {
     }
 
     rs_encode(DATA_SHRED, SHRED_SIZE, data_shreds, coding_shreds);
+
+    for (int i = 0; i < DATA_SHRED; i++) {
+        set->coding_shred[i].checksum =
+            crc32(0, set->coding_shred[i].data, SHRED_SIZE);
+    }
+}
+
+int validate_shred(Shred *s) {
+    uint32_t compute = crc32(0, s->data, SHRED_SIZE);
+    return compute == s->checksum;
 }
