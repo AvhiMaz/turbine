@@ -42,5 +42,14 @@ int main() {
     else
         printf("recovery FAILED\n");
 
+    for (int i = 0; i < DATA_SHRED; i++) {
+        int ok = validate_shred(&set.data_shred[i]);
+        printf("data_shred[%d] %s\n", i, ok ? "OK" : "CORRUPT");
+    }
+    for (int i = 0; i < CODING_SHRED; i++) {
+        int ok = validate_shred(&set.coding_shred[i]);
+        printf("coding_shred[%d] %s\n", i, ok ? "OK" : "CORRUPT");
+    }
+
     return 0;
 }
