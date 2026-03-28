@@ -2,6 +2,8 @@
 #include "defines.h"
 #include "shred.h"
 
+void worker() {}
+
 void tp_init(ThreadPool *tp) {
     tp->head = 0;
     tp->tail = 0;
@@ -21,4 +23,10 @@ void tp_submit(ThreadPool *tp, Shred *s) {
     tp->pending++;
     pthread_cond_signal(&tp->cond);
     pthread_mutex_unlock(&tp->mutex);
+}
+
+void tp_start(ThreadPool *tp) {
+    for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+        pthread_create(&tp->thread[i], NULL, worker, tp);
+    }
 }
