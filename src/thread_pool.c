@@ -70,3 +70,22 @@ void tp_start(ThreadPool *tp) {
         pthread_create(&tp->thread[i], NULL, worker, tp);
     }
 }
+
+void tp_wait(ThreadPool *tp) {
+    pthread_mutex_lock(&tp->mutex);
+    while (tp->pending > 0)
+        pthread_cond_wait(&tp->done_cond, &tp->mutex);
+    pthread_mutex_unlock(&tp->mutex);
+}
+
+void tp_shutdown(ThreadPool *tp) {
+
+    pthread_mutex_lock(&tp->mutex);
+    tp->shutdown = 1;
+    pthread_cond_broadcast(&tp->cond);
+    pthread_mutex_unlock(&tp->mutex);
+
+    for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+        pthread_join(tp->thread[i], NULL);
+    }
+}
