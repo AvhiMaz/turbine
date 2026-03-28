@@ -28,9 +28,9 @@ void *worker(void *args) {
         int ok = validate_shred(s);
 
         if (ok == 1) {
-            printf("shred[%d] OK", s->index);
+            printf("shred[%d] OK\n", s->index);
         } else {
-            printf("shred[%d] CORRUPT", s->index);
+            printf("shred[%d] CORRUPT\n", s->index);
         }
 
         pthread_mutex_lock(&tp->mutex);

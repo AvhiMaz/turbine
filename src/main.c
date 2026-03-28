@@ -1,5 +1,6 @@
 #include "../wrapper/rs_wrapper.h"
 #include "shred.h"
+#include "thread_pool.h"
 #include "transaction.h"
 #include <assert.h>
 #include <stdio.h>
@@ -14,6 +15,18 @@ int main() {
     shred(&tx, &set);
 
     generate_coding_shred(&set);
+
+    ThreadPool tp;
+    tp_init(&tp);
+    tp_start(&tp);
+
+    for (int i = 0; i < DATA_SHRED; i++)
+        tp_submit(&tp, &set.data_shred[i]);
+    for (int i = 0; i < CODING_SHRED; i++)
+        tp_submit(&tp, &set.coding_shred[i]);
+
+    tp_wait(&tp);
+    tp_shutdown(&tp);
 
     uint8_t saved[SHRED_SIZE];
     memcpy(saved, set.data_shred[2].data, SHRED_SIZE);
@@ -41,15 +54,6 @@ int main() {
         printf("recovery OK\n");
     else
         printf("recovery FAILED\n");
-
-    for (int i = 0; i < DATA_SHRED; i++) {
-        int ok = validate_shred(&set.data_shred[i]);
-        printf("data_shred[%d] %s\n", i, ok ? "OK" : "CORRUPT");
-    }
-    for (int i = 0; i < CODING_SHRED; i++) {
-        int ok = validate_shred(&set.coding_shred[i]);
-        printf("coding_shred[%d] %s\n", i, ok ? "OK" : "CORRUPT");
-    }
 
     return 0;
 }

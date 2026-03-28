@@ -30,6 +30,8 @@ void generate_coding_shred(ShredSet *set) {
     rs_encode(DATA_SHRED, SHRED_SIZE, data_shreds, coding_shreds);
 
     for (int i = 0; i < DATA_SHRED; i++) {
+        set->coding_shred[i].index = i;
+        set->coding_shred[i].type = SHRED_CODING;
         set->coding_shred[i].checksum =
             crc32(0, set->coding_shred[i].data, SHRED_SIZE);
     }

@@ -16,4 +16,11 @@ typedef struct {
 
 } ThreadPool;
 
+void *worker(void *args);
+void  tp_init(ThreadPool *tp);
+void  tp_submit(ThreadPool *tp, Shred *s);
+void  tp_start(ThreadPool *tp);
+void  tp_wait(ThreadPool *tp);
+void  tp_shutdown(ThreadPool *tp);
+
 #endif
