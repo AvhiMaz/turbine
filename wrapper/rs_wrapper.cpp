@@ -1,4 +1,4 @@
-#include "../thirdparty/leopard.h"
+#include "../thirdparty/leopard/leopard.h"
 #include <cstdlib>
 #include <cstring>
 
