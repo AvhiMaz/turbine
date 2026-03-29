@@ -9,9 +9,12 @@ run:
 format:
 	clang-format -i src/*.c src/*.h && clang-format -i thirdparty/leopard/*.cpp thirdparty/leopard/*.h thirdparty/cjson/*.c thirdparty/cjson/*.h thirdparty/b64/*.c thirdparty/b64/*.h thirdparty/cjson/*.h && clang-format -i wrapper/*.cpp wrapper/*.h
 
+clean:
+	rm -f *.o main
+
 
 all:
-	make format && make build && make run
+	make format && make build && make run && make clean
 
 link:
 	bear -- make build
